@@ -9,4 +9,4 @@ export default () => {
     <App>some text</App>,
     document.getElementById('react-root'),
   );
-}
+};

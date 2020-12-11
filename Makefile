@@ -8,10 +8,10 @@ test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 
 lint:
-	npx eslint --ext js,jsx
+	npx eslint . --ext js,jsx
 
 lint-fix:
-	npx eslint --fix --ext js,jsx
+	npx eslint . --fix --ext js,jsx
 
 develop:
 	npx webpack serve
