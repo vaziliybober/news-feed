@@ -6,7 +6,7 @@ import App from './components/App.jsx';
 
 export default () => {
   ReactDOM.render(
-    <App>some text</App>,
+    <App />,
     document.getElementById('react-root'),
   );
 };

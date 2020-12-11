@@ -3,7 +3,7 @@
 .container {
   box-sizing: border-box;
   max-width: $viewport-max;
-  padding: 0 40px;
+  padding: 0 20px;
   margin: 0 auto;
 }
 
@@ -15,4 +15,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  background-color: lightcyan;
+  text-decoration: none;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+
+  div {
+    color: black;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
+
+  div {
+    text-align: center;
+  }
 }

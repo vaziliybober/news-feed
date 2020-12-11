@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import Home from './Home.jsx';
 import Article from './Article.jsx';
 
-export default () => {
+const App = () => {
   const [news, setNews] = useState([]);
 
   const fetchNews = async () => {
@@ -18,7 +20,6 @@ export default () => {
         throw new Error('News status not ok');
       }
 
-      console.log(data);
       setNews(data.articles);
     } catch (e) {
       console.log(e);
@@ -29,22 +30,18 @@ export default () => {
     fetchNews();
   }, []);
 
-  // In this app such id is always unique
-  /* eslint-disable react/no-array-index-key */
   return (
-    <>
-      <h1 className="header">News</h1>
-      <div className="news">
-        {news.map((n, i) => (
-          <Article
-            key={i}
-            title={n.title}
-            imageLink={n.urlToImage}
-            preview={n.description}
-          />
-        ))}
-      </div>
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Home news={news} />
+        </Route>
+        <Route path="/:id">
+          <Article />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
-  /* eslint-enable react/no-array-index-key */
 };
+
+export default App;

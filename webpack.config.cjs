@@ -7,7 +7,8 @@ module.exports = {
   devServer: {
     writeToDisk: (filePath) => {
       return /\.css$/.test(filePath);
-    }
+    },
+    historyApiFallback: true
   },
   module: {
     rules: [
