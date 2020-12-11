@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ArticleCard from './ArticleCard.jsx';
 
-export default (props) => {
-  const { news, fetchNews, fetching } = props;
+const useScrollInfo = () => {
   const [isBottom, setIsBottom] = useState(false);
 
   const handleScroll = () => {
@@ -25,10 +24,20 @@ export default (props) => {
     window.addEventListener('scroll', handleScroll);
     return () => { window.removeEventListener('scroll', handleScroll); };
   }, []);
+  
+  return { isBottom };
+}
+
+export default (props) => {
+  const {
+    news, fetchMore, loading, error,
+  } = props;
+
+  const { isBottom } = useScrollInfo();
 
   useEffect(() => {
-    if (isBottom && !fetching) {
-      fetchNews();
+    if (isBottom && !loading) {
+      fetchMore();
     }
   }, [isBottom]);
 
@@ -49,6 +58,8 @@ export default (props) => {
             content={n.content}
           />
         ))}
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
       </div>
     </>
   );

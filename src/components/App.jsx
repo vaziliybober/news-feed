@@ -3,34 +3,40 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import Home from './Home.jsx';
 import Article from './Article.jsx';
+import urls from '../urls.js';
+
+const useNewsApi = () => {
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const fetchMore = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const { data: { contents } } = await axios.get(urls.proxify(urls.news()));
+      const data = JSON.parse(contents);
+      setNews((prevNews) => prevNews.concat(data.articles));
+      setError('');
+    } catch (e) {
+      setError(e.message);
+    }
+    setLoading(false);
+  };
+  return [news, fetchMore, { loading, error }];
+};
 
 const App = () => {
-  const [news, setNews] = useState([]);
-  const [fetching, setFetching] = useState(false);
-
-  const fetchNews = async () => {
-    setFetching(true);
-    try {
-      const { data: { contents } } = await axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent('https://newsapi.org/v2/top-headlines?country=ru&apiKey=5d4d5e4a3bec47d492e57abe7ed90ee4')}`);
-      const data = JSON.parse(contents);
-      console.log(data);
-
-      setNews((prevNews) => prevNews.concat(data.articles));
-    } catch (e) {
-      console.log(e);
-    }
-    setFetching(false);
-  };
+  const [news, fetchMore, { loading, error }] = useNewsApi();
 
   useEffect(() => {
-    fetchNews();
+    fetchMore();
   }, []);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Home news={news} fetchNews={fetchNews} fetching={fetching} />
+          <Home news={news} fetchMore={fetchMore} loading={loading} error={error} />
         </Route>
         <Route path="/:id">
           <Article />
