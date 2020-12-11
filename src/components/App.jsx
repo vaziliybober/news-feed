@@ -6,8 +6,10 @@ import Article from './Article.jsx';
 
 const App = () => {
   const [news, setNews] = useState([]);
+  const [fetching, setFetching] = useState(false);
 
   const fetchNews = async () => {
+    setFetching(true);
     try {
       const { data } = await axios.get('https://newsapi.org/v2/top-headlines', {
         params: {
@@ -20,10 +22,11 @@ const App = () => {
         throw new Error('News status not ok');
       }
 
-      setNews(data.articles);
+      setNews((prevNews) => prevNews.concat(data.articles));
     } catch (e) {
       console.log(e);
     }
+    setFetching(false);
   };
 
   useEffect(() => {
@@ -34,7 +37,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Home news={news} />
+          <Home news={news} fetchNews={fetchNews} fetching={fetching} />
         </Route>
         <Route path="/:id">
           <Article />
