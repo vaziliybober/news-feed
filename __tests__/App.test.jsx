@@ -4,7 +4,7 @@ import React from 'react';
 import App from '../src/components/App.jsx';
 
 test('boilerplate', () => {
-  render(<App>test text</App>);
-  const textElement = screen.getByText(/test text/i);
+  render(<App />);
+  const textElement = screen.getByText(/News/i);
   expect(textElement).toBeInTheDocument();
 });
