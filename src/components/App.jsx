@@ -11,16 +11,9 @@ const App = () => {
   const fetchNews = async () => {
     setFetching(true);
     try {
-      const { data } = await axios.get('https://newsapi.org/v2/top-headlines', {
-        params: {
-          country: 'ru',
-          apiKey: '5d4d5e4a3bec47d492e57abe7ed90ee4',
-        },
-      });
-
-      if (data.status !== 'ok') {
-        throw new Error('News status not ok');
-      }
+      const { data: { contents } } = await axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent('https://newsapi.org/v2/top-headlines?country=ru&apiKey=5d4d5e4a3bec47d492e57abe7ed90ee4')}`);
+      const data = JSON.parse(contents);
+      console.log(data);
 
       setNews((prevNews) => prevNews.concat(data.articles));
     } catch (e) {
