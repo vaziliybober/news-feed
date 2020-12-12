@@ -9,3 +9,12 @@ An endless news feed web application
 ## Link
 
 https://news-feed.vaziliybober.vercel.app/
+
+## Clone
+
+```
+git clone git@github.com:vaziliybober/news-feed.git
+cd news-feed
+make install
+make develop
+```
