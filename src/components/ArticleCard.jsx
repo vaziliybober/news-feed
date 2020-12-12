@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom';
 
 const ArticleCard = (props) => {
   const {
-    title, imageLink, preview, content, id, url,
+    id, article, article: {
+      title, urlToImage, description,
+    },
   } = props;
+
   return (
     <Link
       className="article-card"
       to={{
         pathname: `/${id}`,
         state: {
-          url,
-          title,
-          imageLink,
-          content,
+          article,
         },
       }}
     >
-      <img src={imageLink} alt={title} />
+      <img src={urlToImage} alt={title} />
       <div>
         <h2>{title}</h2>
-        <p>{preview}</p>
+        <p>{description}</p>
       </div>
     </Link>
   );

@@ -51,11 +51,7 @@ export default (props) => {
           <ArticleCard
             key={i}
             id={i}
-            url={n.url}
-            title={n.title}
-            imageLink={n.urlToImage}
-            preview={n.description}
-            content={n.content}
+            article={n}
           />
         ))}
         {loading && <p>Loading...</p>}

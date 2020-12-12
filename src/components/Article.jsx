@@ -3,7 +3,9 @@ import { useLocation } from 'react-router-dom';
 
 export default () => {
   const {
-    url, title, imageLink, content,
+    article: {
+      url, title, urlToImage, content,
+    },
   } = useLocation().state;
 
   useEffect(() => {
@@ -12,7 +14,7 @@ export default () => {
 
   return (
     <div className="article">
-      <img src={imageLink} alt={title} />
+      <img src={urlToImage} alt={title} />
       <div>
         <a href={url}><h2>{title}</h2></a>
         <p>{content}</p>
