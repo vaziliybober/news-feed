@@ -27,10 +27,11 @@ test('app', async () => {
   expect(titleElement).toBeInTheDocument(); // title
   expect(screen.getByText(/Российские медики/i)).toBeInTheDocument(); // description
   expect(screen.getByAltText(/Врачи/i)).toBeInTheDocument(); // image
-  expect(screen.queryByText(/Врачи грачи/i)).toBeNull();
-
+  nock('https://api.allorigins.win').get(/.*/)
+    .reply(200, { contents: 'Врачи грачи' });
   fireEvent.click(titleElement);
-  expect(screen.queryByText(/Врачи грачи/i)).toBeInTheDocument();
+  expect(screen.getByText(/Loading/i)).toBeInTheDocument();
+  expect(await screen.findByText(/Врачи грачи/i)).toBeInTheDocument();
 });
 
 afterEach(() => {
