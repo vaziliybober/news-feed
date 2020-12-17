@@ -16,7 +16,8 @@ const useExtractContent = (url) => {
       setContent(
         contents
           .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-          .replace(/<[^>]*>?/gm, ''),
+          .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+          .replace(/<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/gm, ''),
       );
       setError('');
     } catch (e) {
